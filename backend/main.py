@@ -13,19 +13,11 @@ from llm_utils import extract_key_value_pairs
 
 app = FastAPI(title="GLR Pipeline Automation API", version="1.0.0")
 
-# Enable CORS for Next.js frontend (local development + optional deployed front-end URL)
-frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-if frontend_url and frontend_url not in origins:
-    origins.append(frontend_url)
-
+# Enable CORS for Next.js frontend (Allowing all origins to avoid complex cloud CORS issues)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
